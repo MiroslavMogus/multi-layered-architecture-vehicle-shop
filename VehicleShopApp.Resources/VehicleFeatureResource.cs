@@ -1,4 +1,4 @@
-namespace VehicleShopApp.Resources
+namespace VehicleShop.Controllers.Resources
 {
     public class VehicleFeatureResource
     {

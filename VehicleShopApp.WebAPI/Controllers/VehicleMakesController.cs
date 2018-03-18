@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VehicleShop.Controllers.Resources;
-using VehicleShop.Core;
+using VehicleShopApp.Resources;
+using VehicleShopApp.Repository.Common;
+using VehicleShopApp.Model;
 
 namespace VehicleShop.Controllers
 {

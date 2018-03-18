@@ -11,8 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using VehicleShop.Core;
-using VehicleShop.Persistence;
+using VehicleShopApp.DAL;
+using VehicleShopApp.Model;
+using VehicleShopApp.Repository;
+using VehicleShopApp.Repository.Common;
 
 namespace VehicleShopApp.WebAPI
 {
