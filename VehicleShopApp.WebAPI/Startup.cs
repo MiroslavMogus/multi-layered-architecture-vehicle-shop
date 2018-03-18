@@ -39,6 +39,17 @@ namespace VehicleShopApp.WebAPI
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
             services.AddDbContext<VehicleShopDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod()
+                                 .AllowCredentials();
+                      });
+            });            
             services.AddMvc();
         }
 
@@ -49,7 +60,7 @@ namespace VehicleShopApp.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("AllowAllHeaders");
             app.UseMvc();
         }
     }

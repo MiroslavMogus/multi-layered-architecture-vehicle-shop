@@ -1,7 +1,6 @@
 using AutoMapper;
-using VehicleShop.Controllers.Resources;
-using VehicleShop.Core;
-using VehicleShop.Core.Models;
+using VehicleShopApp.Resources;
+using VehicleShopApp.Model;
 
 namespace VehicleShop.Mapping
 {
