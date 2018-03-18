@@ -5,6 +5,14 @@
 
 This project shows how to structure a multi-project solution for a simple web application using Entity Framework and the Model-View-ViewModel (MVVM) design pattern along with the repository pattern, unitofwork, dependency injection and inversion of control.
 
+![alt text](https://raw.githubusercontent.com/MiroslavMogus/different-images/master/angular-part.jpg)
+
+Frontend
+
+![alt text](https://raw.githubusercontent.com/MiroslavMogus/different-images/master/api-part.jpg)
+
+Backend
+
 *Notice: Author(s) disclaim any liability for errors or omissions in this code. See the [Disclaimer of Warranties and Limitation of Liability](#disclaimer-of-warranties-and-limitation-of-liability) for complete information.*
 
 ## Solution Projects
