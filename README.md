@@ -55,6 +55,39 @@ Backend
 
 Create the database, apply Entity Framework migrations, and run the `Seed` method to populate the database with values for the db tables.
 
+git clone https://github.com/MiroslavMogus/multi-layered-architecture-vehicle-shop.git
+
+Go to:
+
+..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.DAL
+
+
+Change connection string to:
+
+{
+  "ConnectionStrings": {
+    "Default": "Server=(localdb)\\mssqllocaldb;Database=vehicleshop-4;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+
+
+  To populate database run:
+
+  ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
+
+Run Application in Visual Studio.
+
+Api should return values from database at http://127.0.0.1:57877/api/vehiclemakes.
+
+Angular service part of the aplication should read the API from this address.
+
+As administrator run console:
+
+Cd to ..\vehicle-shop-frontend>
+
+Run:
+npm install
+ng serve
+
 ## Configuration
 
 * Two projects contain configuration strings which may require modification for the developer's specific environment:
