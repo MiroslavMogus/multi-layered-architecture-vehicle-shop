@@ -3,7 +3,7 @@
 
 **_VehicleShopApp_** is an ASP.NET CORE MVC case study to create Multy-layered architecture with Vehicle Shop example application.
 
-This project shows how to structure a multi-project solution for a simple web application using Entity Framework and the Model-View-ViewModel (MVVM) design pattern along with the repository pattern, unitofwork, dependency injection and inversion of control.
+This project shows how to structure a multi-project solution for a simple web application using Entity Framework along with the repository pattern, unitofwork, dependency injection and dependency inversion principle.
 
 ![alt text](https://raw.githubusercontent.com/MiroslavMogus/different-images/master/angular-part.jpg)
 
@@ -66,10 +66,12 @@ Follow the steps.
     "Default": "Server=(localdb)\\mssqllocaldb;Database=vehicleshop-4;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
 
-5. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL.
+5. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL
+
    To populate database run:
    
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet restore
+  
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
 
 6. Run Application in Visual Studio with IISExpress.
