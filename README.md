@@ -80,7 +80,13 @@ Api should return values from database at http://127.0.0.1:57877/api/vehiclemake
 
 Angular service part of the aplication should read the API from this address.
 
-As administrator run console:
+To run frontend part of the app:
+
+git clone https://github.com/MiroslavMogus/vehicle-shop-frontend.git
+
+As administrator run console window.
+
+After cloning is finished,
 
 Cd to ..\vehicle-shop-frontend>
 
