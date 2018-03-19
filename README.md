@@ -68,7 +68,8 @@ Follow the steps.
 
 5. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL.
    To populate database run:
-
+   
+  ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet restore
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
 
 6. Run Application in Visual Studio with IISExpress.
