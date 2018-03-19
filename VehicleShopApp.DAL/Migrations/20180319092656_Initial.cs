@@ -3,19 +3,32 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace VehicleShop.Migrations
+namespace VehicleShopApp.DAL.Migrations
 {
-    public partial class InitialMModel : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "VehicleFeatures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleFeatures", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "VehicleMakes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -23,19 +36,19 @@ namespace VehicleShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleModel",
+                name: "VehicleModels",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 255, nullable: false),
                     VehicleMakeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleModel", x => x.Id);
+                    table.PrimaryKey("PK_VehicleModels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VehicleModel_VehicleMakes_VehicleMakeId",
+                        name: "FK_VehicleModels_VehicleMakes_VehicleMakeId",
                         column: x => x.VehicleMakeId,
                         principalTable: "VehicleMakes",
                         principalColumn: "Id",
@@ -43,15 +56,18 @@ namespace VehicleShop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehicleModel_VehicleMakeId",
-                table: "VehicleModel",
+                name: "IX_VehicleModels_VehicleMakeId",
+                table: "VehicleModels",
                 column: "VehicleMakeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VehicleModel");
+                name: "VehicleFeatures");
+
+            migrationBuilder.DropTable(
+                name: "VehicleModels");
 
             migrationBuilder.DropTable(
                 name: "VehicleMakes");
