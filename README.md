@@ -54,24 +54,24 @@ To be able to see the app in action you should create the database by applying E
 Follow the steps.
 
 1. Download or clone this repository. git clone https://github.com/MiroslavMogus/multi-layered-architecture-vehicle-shop.git
-1. Open the solution in Visual Studio 2017 or higher.
-1. Go to:
+2. Open the solution in Visual Studio 2017 or higher.
+3. Go to:
 
 ..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.WebAPI
 
-1. Change connection string inside appsettings.json to:
+4. Change connection string inside appsettings.json to:
 
 {
   "ConnectionStrings": {
     "Default": "Server=(localdb)\\mssqllocaldb;Database=vehicleshop-4;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
 
-1. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL.
+5. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL.
    To populate database run:
 
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
 
-1. Run Application in Visual Studio with IISExpress.
+6. Run Application in Visual Studio with IISExpress.
 
 Api should return values from database at http://127.0.0.1:57877/api/vehiclemakes.
 
@@ -79,15 +79,15 @@ Angular service part of the aplication should read the API from this address.
 
 To run frontend part of the app:
 
-1. git clone https://github.com/MiroslavMogus/vehicle-shop-frontend.git
+7. git clone https://github.com/MiroslavMogus/vehicle-shop-frontend.git
 
-1. As administrator run console window.
+8. As administrator run console window.
 
 After cloning is finished,
 
-1. Cd to ..\vehicle-shop-frontend>
+9. Cd to ..\vehicle-shop-frontend>
 
-1. Run:
+10. Run:
 npm install
 ng serve
 
