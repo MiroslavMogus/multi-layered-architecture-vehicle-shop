@@ -49,32 +49,29 @@ Backend
 
 ## Getting Started
 
-1. Download or clone this repository.
+To be able to see the app in action you should create the database by applying Entity Framework migrations, and run the `Seed` method to populate the database with values for the db tables.
+
+Follow the steps.
+
+1. Download or clone this repository. git clone https://github.com/MiroslavMogus/multi-layered-architecture-vehicle-shop.git
 1. Open the solution in Visual Studio 2017 or higher.
+1. Go to:
 
+..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.WebAPI
 
-Create the database, apply Entity Framework migrations, and run the `Seed` method to populate the database with values for the db tables.
-
-git clone https://github.com/MiroslavMogus/multi-layered-architecture-vehicle-shop.git
-
-Go to:
-
-..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.DAL
-
-
-Change connection string to:
+1. Change connection string inside appsettings.json to:
 
 {
   "ConnectionStrings": {
     "Default": "Server=(localdb)\\mssqllocaldb;Database=vehicleshop-4;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
 
-
-  To populate database run:
+1. Go to ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL.
+   To populate database run:
 
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
 
-Run Application in Visual Studio.
+1. Run Application in Visual Studio with IISExpress.
 
 Api should return values from database at http://127.0.0.1:57877/api/vehiclemakes.
 
@@ -82,15 +79,15 @@ Angular service part of the aplication should read the API from this address.
 
 To run frontend part of the app:
 
-git clone https://github.com/MiroslavMogus/vehicle-shop-frontend.git
+1. git clone https://github.com/MiroslavMogus/vehicle-shop-frontend.git
 
-As administrator run console window.
+1. As administrator run console window.
 
 After cloning is finished,
 
-Cd to ..\vehicle-shop-frontend>
+1. Cd to ..\vehicle-shop-frontend>
 
-Run:
+1. Run:
 npm install
 ng serve
 
