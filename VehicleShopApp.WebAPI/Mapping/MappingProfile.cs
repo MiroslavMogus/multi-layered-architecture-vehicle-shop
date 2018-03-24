@@ -10,7 +10,6 @@ namespace VehicleShop.Mapping
         {
             CreateMap<VehicleMake, VehicleMakeResource>();
             CreateMap<VehicleModel, VehicleModelResource>();
-            CreateMap<VehicleFeature, VehicleFeatureResource>();
         }
     }
 }

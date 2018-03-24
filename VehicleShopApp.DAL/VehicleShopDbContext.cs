@@ -5,11 +5,12 @@ namespace VehicleShopApp.DAL
 {
     public class VehicleShopDbContext : DbContext
     {
+        public DbSet<VehicleMake> VehicleMakes { get; set; }
+
         public VehicleShopDbContext(DbContextOptions<VehicleShopDbContext> options)
           :base(options)
         {
         }
-        public DbSet<VehicleMake> VehicleMakes { get; set; }      
-        public DbSet<VehicleFeature> VehicleFeatures { get; set; }          
+        
         }
 }
