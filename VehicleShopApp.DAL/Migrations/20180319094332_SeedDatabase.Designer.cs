@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using VehicleShopApp.DAL;
 
-namespace VehicleShop.Migrations
+namespace VehicleShopApp.DAL.Migrations
 {
     [DbContext(typeof(VehicleShopDbContext))]
-    [Migration("20180314230144_SeedData")]
-    partial class SeedData
+    [Migration("20180319094332_SeedDatabase")]
+    partial class SeedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace VehicleShop.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VehicleShop.Models.VehicleFeature", b =>
+            modelBuilder.Entity("VehicleShopApp.Model.VehicleFeature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -35,7 +35,7 @@ namespace VehicleShop.Migrations
                     b.ToTable("VehicleFeatures");
                 });
 
-            modelBuilder.Entity("VehicleShop.Models.VehicleMake", b =>
+            modelBuilder.Entity("VehicleShopApp.Model.VehicleMake", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -49,7 +49,7 @@ namespace VehicleShop.Migrations
                     b.ToTable("VehicleMakes");
                 });
 
-            modelBuilder.Entity("VehicleShop.Models.VehicleModel", b =>
+            modelBuilder.Entity("VehicleShopApp.Model.VehicleModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -67,9 +67,9 @@ namespace VehicleShop.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("VehicleShop.Models.VehicleModel", b =>
+            modelBuilder.Entity("VehicleShopApp.Model.VehicleModel", b =>
                 {
-                    b.HasOne("VehicleShop.Models.VehicleMake", "VehicleMake")
+                    b.HasOne("VehicleShopApp.Model.VehicleMake", "VehicleMake")
                         .WithMany("VehicleModels")
                         .HasForeignKey("VehicleMakeId")
                         .OnDelete(DeleteBehavior.Cascade);
