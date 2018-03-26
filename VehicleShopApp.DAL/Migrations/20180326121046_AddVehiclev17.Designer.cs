@@ -11,8 +11,8 @@ using VehicleShopApp.DAL;
 namespace VehicleShopApp.DAL.Migrations
 {
     [DbContext(typeof(VehicleShopDbContext))]
-    [Migration("20180324143906_AddVehicleV2")]
-    partial class AddVehicleV2
+    [Migration("20180326121046_AddVehiclev17")]
+    partial class AddVehiclev17
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,22 @@ namespace VehicleShopApp.DAL.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("VehicleShopApp.Model.Vehicle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("OwnerEmail");
+
+                    b.Property<int?>("VehicleModelId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleModelId");
+
+                    b.ToTable("Vehicles");
+                });
 
             modelBuilder.Entity("VehicleShopApp.Model.VehicleMake", b =>
                 {
@@ -51,6 +67,13 @@ namespace VehicleShopApp.DAL.Migrations
                     b.HasIndex("VehicleMakeId");
 
                     b.ToTable("VehicleModels");
+                });
+
+            modelBuilder.Entity("VehicleShopApp.Model.Vehicle", b =>
+                {
+                    b.HasOne("VehicleShopApp.Model.VehicleModel", "VehicleModel")
+                        .WithMany()
+                        .HasForeignKey("VehicleModelId");
                 });
 
             modelBuilder.Entity("VehicleShopApp.Model.VehicleModel", b =>

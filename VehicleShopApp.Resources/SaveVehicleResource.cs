@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using VehicleShopApp.Model;
 
-namespace VehicleShopApp.Model
+namespace VehicleShopApp.Resources
 {
-    [Table("Vehicles")]
-    public class Vehicle
+    public class SaveVehicleResource
     {
-        public int Id { get;  set; }
+        public int Id { get; set; }
 
         public VehicleModel VehicleModel { get; set; }
 
         public string OwnerEmail { get; set; }
-
     }
 }
