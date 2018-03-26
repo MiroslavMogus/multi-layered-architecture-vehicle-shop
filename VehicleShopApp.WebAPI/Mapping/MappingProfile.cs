@@ -10,6 +10,12 @@ namespace VehicleShop.Mapping
         {
             CreateMap<VehicleMake, VehicleMakeResource>();
             CreateMap<VehicleModel, VehicleModelResource>();
+
+            CreateMap<Vehicle, VehicleResource>();
+
+            CreateMap<SaveVehicleResource, Vehicle>()
+                .ForMember(v=> v.Id, opt=>opt.Ignore());
+
         }
     }
 }
