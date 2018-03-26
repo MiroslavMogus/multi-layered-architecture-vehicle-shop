@@ -20,22 +20,6 @@ namespace VehicleShopApp.DAL.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VehicleShopApp.Model.Vehicle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("OwnerEmail");
-
-                    b.Property<int?>("VehicleModelId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleModelId");
-
-                    b.ToTable("Vehicles");
-                });
-
             modelBuilder.Entity("VehicleShopApp.Model.VehicleMake", b =>
                 {
                     b.Property<int>("Id")
@@ -66,13 +50,6 @@ namespace VehicleShopApp.DAL.Migrations
                     b.HasIndex("VehicleMakeId");
 
                     b.ToTable("VehicleModels");
-                });
-
-            modelBuilder.Entity("VehicleShopApp.Model.Vehicle", b =>
-                {
-                    b.HasOne("VehicleShopApp.Model.VehicleModel", "VehicleModel")
-                        .WithMany()
-                        .HasForeignKey("VehicleModelId");
                 });
 
             modelBuilder.Entity("VehicleShopApp.Model.VehicleModel", b =>

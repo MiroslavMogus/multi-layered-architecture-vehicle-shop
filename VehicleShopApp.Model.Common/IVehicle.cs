@@ -8,8 +8,8 @@ namespace VehicleShopApp.Model.Common
     {
         public int Id { get; set; }
 
-        public IVehicleModel VehicleModel { get; set; }
+        public int VehicleModelId { get; set; }
 
-        public string OwnerEmail { get; set; }
+        public IVehicleModel VehicleModel { get; set; }
     }
 }

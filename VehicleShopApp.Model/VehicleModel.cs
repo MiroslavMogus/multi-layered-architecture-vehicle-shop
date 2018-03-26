@@ -12,6 +12,5 @@ namespace VehicleShopApp.Model
         public string Name { get; set; }
         public VehicleMake VehicleMake { get; set; }
         public int VehicleMakeId { get; set; }
-
     }
 }
