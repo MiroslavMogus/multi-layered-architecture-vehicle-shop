@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VehicleShopApp.DAL.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class AddVehiclev19 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
