@@ -11,9 +11,10 @@ using VehicleShopApp.DAL;
 namespace VehicleShopApp.DAL.Migrations
 {
     [DbContext(typeof(VehicleShopDbContext))]
-    partial class VehicleShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180327120342_NewModel")]
+    partial class NewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

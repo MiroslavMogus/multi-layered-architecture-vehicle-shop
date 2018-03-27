@@ -28,11 +28,24 @@ namespace VehicleShopApp.WebAPI.Controllers
             this.repository = repository;
         }
 
+        [HttpGet("/api/vehicles")]
+
+        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        {
+            /* Before dependency injection pattern implementation
+             * var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
+             * return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
+             */
+
+            // After implementation
+            return await repository.GetVehicles();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
 
-            var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
 
             context.Vehicles.Add(vehicle);
 

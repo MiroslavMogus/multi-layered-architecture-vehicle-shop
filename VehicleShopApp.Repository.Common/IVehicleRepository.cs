@@ -7,5 +7,6 @@ namespace VehicleShopApp.Repository.Common
     public interface IVehicleRepository
     {
          Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes();
+         Task<IEnumerable<VehicleResource>> GetVehicles();
     }
 }

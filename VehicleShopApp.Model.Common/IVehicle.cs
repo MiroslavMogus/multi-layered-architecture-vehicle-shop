@@ -10,6 +10,8 @@ namespace VehicleShopApp.Model.Common
 
         public IVehicleModel VehicleModel { get; set; }
 
+        public IVehicleMake VehicleMake { get; set; }
+
         public string OwnerEmail { get; set; }
     }
 }
