@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using VehicleShopApp.Model;
 using VehicleShopApp.Resources;
 
 namespace VehicleShopApp.Repository.Common
@@ -8,5 +9,6 @@ namespace VehicleShopApp.Repository.Common
     {
          Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes();
          Task<IEnumerable<VehicleResource>> GetVehicles();
+         Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
     }
 }

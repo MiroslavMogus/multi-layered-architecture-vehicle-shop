@@ -12,7 +12,7 @@ namespace VehicleShopApp.Resources
 
         public int VehicleModelId { get; set; }
 
-        public int VehicleMakelId { get; set; }
+        public int VehicleMakeId { get; set; }
 
         public VehicleModel VehicleModel { get; set; }
 
