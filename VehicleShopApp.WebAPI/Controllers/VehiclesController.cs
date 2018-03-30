@@ -15,17 +15,19 @@ namespace VehicleShopApp.WebAPI.Controllers
 {
     [EnableCors("AllowAllHeaders")]
     [Route("/api/vehicles")]
-    public class VehiclesController: Controller
+    public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
         private readonly VehicleShopDbContext context;
         private readonly IVehicleRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public VehiclesController(IMapper mapper, VehicleShopDbContext context, IVehicleRepository repository)
+        public VehiclesController(IMapper mapper, VehicleShopDbContext context, IVehicleRepository repository, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.context = context;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet("/api/vehicles")]
@@ -60,20 +62,24 @@ namespace VehicleShopApp.WebAPI.Controllers
 
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
 
-            context.Vehicles.Add(vehicle);
+            //context.Vehicles.Add(vehicle);
 
-            await context.SaveChangesAsync();
+
+            //await context.SaveChangesAsync();
+            await unitOfWork.AddAsync(vehicle);
+
+            await unitOfWork.CommitAsync();
 
             return Ok(vehicle);
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
 
             var vehicle = await context.Vehicles.FindAsync(id);
 
- 
+
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
 
             await context.SaveChangesAsync();
@@ -81,8 +87,8 @@ namespace VehicleShopApp.WebAPI.Controllers
             var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
 
             return Ok(vehicle);
-            
+
         }
-        
+
     }
 }

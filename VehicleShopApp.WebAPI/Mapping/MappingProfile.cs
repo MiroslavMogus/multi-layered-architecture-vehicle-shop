@@ -13,8 +13,7 @@ namespace VehicleShop.Mapping
 
             CreateMap<Vehicle, VehicleResource>();
 
-            CreateMap<SaveVehicleResource, Vehicle>()
-                .ForMember(v=> v.Id, opt=>opt.Ignore());
+            CreateMap<SaveVehicleResource, Vehicle>();
 
         }
     }
