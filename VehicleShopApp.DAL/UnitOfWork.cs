@@ -17,13 +17,21 @@ namespace VehicleShopApp.DAL
             this.context = context;
         }
 
+        /// <summary>
+        /// CommitAsync method.
+        /// Limitations of System.Transactions in EF Core and why I used context.Database.BeginTransaction() instead of it.
+        /// EF Core relies on database providers to implement support for System.Transactions.
+        /// Although support is quite common among ADO.NET providers for .NET Framework, the API has only been recently added to .NET Core and hence support is not be as widespread.
+        /// If a provider does not implement support for System.Transactions, it is possible that calls to these APIs will be completely ignored. 
+        /// SqlClient for .NET Core does support it from 2.1 onwards.SqlClient for .NET Core 2.0 will throw an exception of you attempt to use the feature.
+        /// </summary>
         public async Task<int> CommitAsync()
         {
             int result = 0;
-            using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            using (var transaction = context.Database.BeginTransaction())
             {
                 result = await context.SaveChangesAsync();
-                scope.Complete();
+                context.Database.CommitTransaction();
             }
             return result;
         }
