@@ -4,9 +4,9 @@ using AutoMapper;
 using VehicleShopApp.Repository.Common;
 using VehicleShopApp.DAL;
 using VehicleShopApp.Resources;
-using VehicleShopApp.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using VehicleShopApp.Model;
 
 namespace VehicleShopApp.Repository
 {
@@ -14,6 +14,9 @@ namespace VehicleShopApp.Repository
     {
         private readonly VehicleShopDbContext context;
         private readonly IMapper vmapper;
+
+        public object Vehicles => throw new System.NotImplementedException();
+
         public VehicleRepository(VehicleShopDbContext context, IMapper vmapper)
         {
             this.context = context;
@@ -46,11 +49,22 @@ namespace VehicleShopApp.Repository
         {
             var vehicle = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
 
-            //context.Vehicles.Add(vehicle);
-
-            //await context.SaveChangesAsync();
-
             return vehicle;
+        }
+
+
+        Vehicle IVehicleRepository.EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource)
+        {
+            var result = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
+
+            return result;
+        }
+
+        public SaveVehicleResource MapVehicle(Vehicle vehicle)
+        {
+            var result = vmapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+
+            return result;
         }
     }
 }

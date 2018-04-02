@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using VehicleShopApp.Model;
 using VehicleShopApp.Repository.Common;
 using VehicleShopApp.Resources;
@@ -41,14 +42,30 @@ namespace VehicleShopApp.Service
             return Repository.GetVehicles();
         }
 
-        public async void CreateVehicle(SaveVehicleResource vehicleResource)
+        public async Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource)
         {
             var vehicle = Repository.CreateVehicle(vehicleResource);
             
             await UnitOfWork.AddAsync(vehicle);
 
             UnitOfWork.CommitAsync();
+
+            return vehicle;
         }
 
+        public async Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource)
+        {
+            var vehicle = Repository.GetVehicle(id);
+            
+            Repository.EditVehicle(vehicle, vehicleResource);
+
+            await UnitOfWork.UpdateAsync(vehicle);
+
+            UnitOfWork.CommitAsync();
+            
+            var result = Repository.MapVehicle(vehicle);
+
+            return result;
+        }
     }
 }

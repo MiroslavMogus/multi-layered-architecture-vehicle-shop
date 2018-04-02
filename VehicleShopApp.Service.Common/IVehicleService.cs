@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VehicleShopApp.Model;
 using VehicleShopApp.Resources;
 
@@ -9,6 +10,7 @@ namespace VehicleShopApp.Service.Common
     {
         IEnumerable<VehicleResource> GetVehicles();
         IEnumerable<VehicleMakeResource> GetVehicleMakes();
-        void CreateVehicle(SaveVehicleResource vehicleResource);
+        Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource);
+        Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource);
     }
 }

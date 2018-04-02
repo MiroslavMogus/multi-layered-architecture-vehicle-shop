@@ -75,32 +75,21 @@ namespace VehicleShopApp.WebAPI.Controllers
         [HttpPost]
         public IActionResult CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
-           
-            service.CreateVehicle(vehicleResource);
+            var vehicle = service.CreateVehicle(vehicleResource);
 
-            return Ok();
+            return Ok(vehicle);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
+        public IActionResult UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
+            var vehicle = Repository.GetVehicle(id);
 
-            var vehicle = await context.Vehicles.FindAsync(id);
+            var result = service.EditVehicle(id, vehicleResource);
 
-
-            mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
-
-            await unitOfWork.UpdateAsync(vehicle);
-
-            unitOfWork.CommitAsync();
-
-            // await context.SaveChangesAsync();
-
-            var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
-
-            return Ok(vehicle);
-
+            return Ok(result);
         }
+
 
     }
 }
