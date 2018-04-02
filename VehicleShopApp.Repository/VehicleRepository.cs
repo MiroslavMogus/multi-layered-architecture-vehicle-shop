@@ -6,6 +6,7 @@ using VehicleShopApp.DAL;
 using VehicleShopApp.Resources;
 using VehicleShopApp.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace VehicleShopApp.Repository
 {
@@ -19,33 +20,37 @@ namespace VehicleShopApp.Repository
             this.vmapper = vmapper;
         }
 
-        public async Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes()
-        { 
-            var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
-
-            return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
-        }
-
-        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        IEnumerable<VehicleResource> IVehicleRepository.GetVehicles()
         {
-            var vehicles = await context.Vehicles
-        .Include(v => v.VehicleModel)
-          .ThenInclude(m => m.VehicleMake)
-        .ToListAsync();
+            var vehicles = context.Vehicles
+            .Include(v => v.VehicleModel)
+            .ThenInclude(m => m.VehicleMake)
+            .ToList();
 
             return vmapper.Map<List<Vehicle>, List<VehicleResource>>(vehicles);
         }
 
-        public async Task<Vehicle> GetVehicle(int id, bool includeRelated = true)
+        IEnumerable<VehicleMakeResource> IVehicleRepository.GetVehicleMakes()
         {
-            if (!includeRelated)
-                return await context.Vehicles.FindAsync(id);
+            var vehiclemakes = context.VehicleMakes.Include(m => m.VehicleModels).ToList();
 
-            return await context.Vehicles
-              .Include(v => v.VehicleModel)
-                .ThenInclude(m => m.VehicleMake)
-              .SingleOrDefaultAsync(v => v.Id == id);
+            return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
         }
 
+        Vehicle IVehicleRepository.GetVehicle(int id, bool includeRelated)
+        {
+            return context.Vehicles.Find(id);
+        }
+
+        Vehicle IVehicleRepository.CreateVehicle(SaveVehicleResource vehicleResource)
+        {
+            var vehicle = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
+
+            //context.Vehicles.Add(vehicle);
+
+            //await context.SaveChangesAsync();
+
+            return vehicle;
+        }
     }
 }

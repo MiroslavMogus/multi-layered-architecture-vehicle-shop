@@ -26,6 +26,8 @@
     <ProjectReference Include="..\VehicleShopApp.DAL\VehicleShopApp.DAL.csproj" />
     <ProjectReference Include="..\VehicleShopApp.Repository.Common\VehicleShopApp.Repository.Common.csproj" />
     <ProjectReference Include="..\VehicleShopApp.Repository\VehicleShopApp.Repository.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Service.Common\VehicleShopApp.Service.Common.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Service\VehicleShopApp.Service.csproj" />
   </ItemGroup>
 
 </Project>

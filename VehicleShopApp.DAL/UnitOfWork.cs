@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using System.Transactions;
 using VehicleShopApp.DAL;
 using VehicleShopApp.Model;
+using VehicleShopApp.Resources;
 
 namespace VehicleShopApp.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        protected VehicleShopDbContext context { get; private set; }
+        protected VehicleShopDbContext context { get; set; }
 
         public UnitOfWork(VehicleShopDbContext context)
         {
@@ -19,20 +20,18 @@ namespace VehicleShopApp.DAL
 
         /// <summary>
         /// CommitAsync method.
-        /// Limitations of System.Transactions in EF Core and why I used context.Database.BeginTransaction() instead of it.
+        /// Because of limitations of System.Transactions in EF Core I did not use it.
         /// EF Core relies on database providers to implement support for System.Transactions.
         /// Although support is quite common among ADO.NET providers for .NET Framework, the API has only been recently added to .NET Core and hence support is not be as widespread.
         /// If a provider does not implement support for System.Transactions, it is possible that calls to these APIs will be completely ignored. 
         /// SqlClient for .NET Core does support it from 2.1 onwards.SqlClient for .NET Core 2.0 will throw an exception of you attempt to use the feature.
         /// </summary>
-        public async Task<int> CommitAsync()
+        public  int CommitAsync()
         {
             int result = 0;
-            using (var transaction = context.Database.BeginTransaction())
-            {
-                result = await context.SaveChangesAsync();
-                context.Database.CommitTransaction();
-            }
+
+            result = context.SaveChanges();
+
             return result;
         }
 
@@ -40,6 +39,7 @@ namespace VehicleShopApp.DAL
         {
             try
             {
+                
                 EntityEntry dbEntityEntry = context.Entry(entity);
                 if (dbEntityEntry.State != EntityState.Detached)
                 {
@@ -48,13 +48,17 @@ namespace VehicleShopApp.DAL
                 else
                 {
                     context.Set<T>().Add(entity);
+                    
                 }
+                
                 return Task.FromResult(1);
+                
             }
             catch (Exception e)
             {
                 throw e;
             }
+
         }
 
         public Task<int> UpdateAsync<T>(T entity) where T : class

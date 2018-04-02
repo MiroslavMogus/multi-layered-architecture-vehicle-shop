@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleShopApp.Repository.Common\VehicleShopApp.Repository.Common.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Service.Common\VehicleShopApp.Service.Common.csproj" />
+  </ItemGroup>
+
+</Project>

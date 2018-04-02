@@ -22,7 +22,7 @@ namespace VehicleShop.Controllers
         }
         [HttpGet("/api/vehiclemakes")]
 
-        public async Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes()
+        public IEnumerable<VehicleMakeResource> GetVehicleMakes()
         {
             /* Before dependency injection pattern implementation
              * var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
@@ -30,7 +30,7 @@ namespace VehicleShop.Controllers
              */
 
             // After implementation
-            return await repository.GetVehicleMakes();
+            return repository.GetVehicleMakes();
         }
     }
 }

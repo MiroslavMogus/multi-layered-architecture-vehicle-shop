@@ -10,6 +10,7 @@ using VehicleShopApp.DAL;
 using VehicleShopApp.Model;
 using VehicleShopApp.Repository.Common;
 using VehicleShopApp.Resources;
+using VehicleShopApp.Service.Common;
 
 namespace VehicleShopApp.WebAPI.Controllers
 {
@@ -19,20 +20,22 @@ namespace VehicleShopApp.WebAPI.Controllers
     {
         private readonly IMapper mapper;
         private readonly VehicleShopDbContext context;
-        private readonly IVehicleRepository repository;
+        private readonly IVehicleRepository Repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly IVehicleService service;
 
-        public VehiclesController(IMapper mapper, VehicleShopDbContext context, IVehicleRepository repository, IUnitOfWork unitOfWork)
+        public VehiclesController(IMapper mapper, VehicleShopDbContext context, IVehicleRepository repository, IUnitOfWork unitOfWork, IVehicleService service)
         {
             this.mapper = mapper;
             this.context = context;
-            this.repository = repository;
+            this.Repository = repository;
             this.unitOfWork = unitOfWork;
+            this.service = service;
         }
 
         [HttpGet("/api/vehicles")]
 
-        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        public IEnumerable<VehicleResource> GetVehicles()
         {
             /* Before dependency injection pattern implementation
              * var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
@@ -40,13 +43,26 @@ namespace VehicleShopApp.WebAPI.Controllers
              */
 
             // After implementation
-            return await repository.GetVehicles();
+            return service.GetVehicles();
         }
 
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetVehicle(int id)
+        //{
+        //    var vehicle = await repository.GetVehicle(id);
+
+        //    if (vehicle == null)
+        //        return NotFound();
+
+        //    var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+        //    return Ok(vehicleResource);
+        //}
+
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetVehicle(int id)
+        public IActionResult GetVehicle(int id)
         {
-            var vehicle = await repository.GetVehicle(id);
+            var vehicle = Repository.GetVehicle(id);
 
             if (vehicle == null)
                 return NotFound();
@@ -57,19 +73,12 @@ namespace VehicleShopApp.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
+        public IActionResult CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
+           
+            service.CreateVehicle(vehicleResource);
 
-            var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
-
-            //context.Vehicles.Add(vehicle);
-
-            //await context.SaveChangesAsync();
-            await unitOfWork.AddAsync(vehicle);
-
-            await unitOfWork.CommitAsync();
-
-            return Ok(vehicle);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -81,7 +90,11 @@ namespace VehicleShopApp.WebAPI.Controllers
 
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
 
-            await context.SaveChangesAsync();
+            await unitOfWork.UpdateAsync(vehicle);
+
+            unitOfWork.CommitAsync();
+
+            // await context.SaveChangesAsync();
 
             var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
 

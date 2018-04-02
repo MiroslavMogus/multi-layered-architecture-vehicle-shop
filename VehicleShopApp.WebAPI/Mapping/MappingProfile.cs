@@ -14,7 +14,6 @@ namespace VehicleShop.Mapping
             CreateMap<Vehicle, VehicleResource>();
 
             CreateMap<SaveVehicleResource, Vehicle>();
-
         }
     }
 }
