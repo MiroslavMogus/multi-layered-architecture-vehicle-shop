@@ -67,5 +67,17 @@ namespace VehicleShopApp.Service
 
             return result;
         }
+
+        public async Task<SaveVehicleResource> DeleteVehicle(int id)
+        {
+            var vehicle = Repository.GetVehicle(id);
+
+            await UnitOfWork.DeleteAsync(vehicle);
+
+            UnitOfWork.CommitAsync();
+
+            SaveVehicleResource result = null;
+            return result;
+        }
     }
 }

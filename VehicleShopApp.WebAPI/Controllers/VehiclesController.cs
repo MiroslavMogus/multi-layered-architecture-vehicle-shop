@@ -90,6 +90,15 @@ namespace VehicleShopApp.WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
+        {
+
+            var result = service.DeleteVehicle(id);
+
+            return Ok(result);
+        }
+
 
     }
 }

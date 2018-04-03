@@ -12,5 +12,6 @@ namespace VehicleShopApp.Service.Common
         IEnumerable<VehicleMakeResource> GetVehicleMakes();
         Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource);
         Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource);
+        Task<SaveVehicleResource> DeleteVehicle(int id);
     }
 }
