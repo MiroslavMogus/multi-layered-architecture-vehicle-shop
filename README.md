@@ -57,6 +57,8 @@ Follow the steps.
 2. Open the solution in Visual Studio 2017 or higher.
 3. Go to:
 
+cd multi-layered-architecture-vehicle-shop
+
 ..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.WebAPI
 
 4. Change connection string inside appsettings.json to:
@@ -76,7 +78,7 @@ Follow the steps.
 
 6. Run Application in Visual Studio with IISExpress.
 
-Api should return values from database at http://127.0.0.1:57877/api/vehiclemakes.
+Api should return values from database at http://localhost:5787/api/vehiclemakes.
 
 Angular service part of the aplication should read the API from this address.
 
