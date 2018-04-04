@@ -72,7 +72,7 @@ Follow the steps.
    
   ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet restore
   
-  ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update SeedDatabase
+  ..\multi-layered-architecture-vehicle-shop\VehicleShopApp.DAL>dotnet ef --startup-project ../VehicleShopApp.WebAPI/ database update NewModelIncrease
 
 6. Run Application in Visual Studio with IISExpress.
 
