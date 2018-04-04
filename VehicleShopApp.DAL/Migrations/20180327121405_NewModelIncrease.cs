@@ -8,6 +8,13 @@ namespace VehicleShopApp.DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
+            // VehicleMakes
+            migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleMakes] ON");
+            migrationBuilder.Sql("INSERT INTO[dbo].[VehicleMakes] ([Id], [Name]) VALUES(1, N'Mercedes')");
+            migrationBuilder.Sql("INSERT INTO[dbo].[VehicleMakes] ([Id], [Name]) VALUES(2, N'Peugeot')");
+            migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleMakes] OFF");
+
             // VehicleModels
             migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleModels] ON");
             migrationBuilder.Sql("INSERT INTO[dbo].[VehicleModels] ([Id], [Name], [VehicleMakeId]) VALUES(2, N'E-Class', 1)");
@@ -15,12 +22,6 @@ namespace VehicleShopApp.DAL.Migrations
             migrationBuilder.Sql("INSERT INTO[dbo].[VehicleModels] ([Id], [Name], [VehicleMakeId]) VALUES(4, N'508', 2)");
             migrationBuilder.Sql("INSERT INTO[dbo].[VehicleModels] ([Id], [Name], [VehicleMakeId]) VALUES(5, N'308', 2)");
             migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleModels] OFF");
-
-            // VehicleMakes
-            migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleMakes] ON");
-            migrationBuilder.Sql("INSERT INTO[dbo].[VehicleMakes] ([Id], [Name]) VALUES(1, N'Mercedes')");
-            migrationBuilder.Sql("INSERT INTO[dbo].[VehicleMakes] ([Id], [Name]) VALUES(2, N'Peugeot')");
-            migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[VehicleMakes] OFF");
 
             // Vehicles
             migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[Vehicles] ON");
