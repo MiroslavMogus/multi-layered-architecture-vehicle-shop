@@ -23,12 +23,12 @@ namespace VehicleShopApp.Repository
             this.vmapper = vmapper;
         }
 
-        IEnumerable<VehicleResource> IVehicleRepository.GetVehicles()
+        async Task<IEnumerable<VehicleResource>> IVehicleRepository.GetVehicles()
         {
-            var vehicles = context.Vehicles
+            var vehicles = await context.Vehicles
             .Include(v => v.VehicleModel)
             .ThenInclude(m => m.VehicleMake)
-            .ToList();
+            .ToListAsync();
 
             return vmapper.Map<List<Vehicle>, List<VehicleResource>>(vehicles);
         }
@@ -51,7 +51,6 @@ namespace VehicleShopApp.Repository
 
             return vehicle;
         }
-
 
         Vehicle IVehicleRepository.EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource)
         {

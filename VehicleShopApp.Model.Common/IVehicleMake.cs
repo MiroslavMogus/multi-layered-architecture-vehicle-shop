@@ -10,6 +10,5 @@ namespace VehicleShopApp.Model.Common
         public string Name { get; set; }
 
         ICollection<IVehicleModel> VehicleModels { get; set; }
-
     }
 }

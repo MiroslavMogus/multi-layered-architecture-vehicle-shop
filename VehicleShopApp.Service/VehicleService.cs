@@ -37,11 +37,15 @@ namespace VehicleShopApp.Service
         /// Gets all available vehicles.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<VehicleResource> GetVehicles()
+        public async Task<IEnumerable<VehicleResource>> GetVehicles()
         {
-            return Repository.GetVehicles();
+            return await Repository.GetVehicles();
         }
 
+        /// <summary>
+        /// Create new vehicle and store it to database.
+        /// </summary>
+        /// <returns></returns>
         public async Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource)
         {
             var vehicle = Repository.CreateVehicle(vehicleResource);
@@ -53,6 +57,10 @@ namespace VehicleShopApp.Service
             return vehicle;
         }
 
+        /// <summary>
+        /// Edit existing vehicle and update database.
+        /// </summary>
+        /// <returns></returns>
         public async Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource)
         {
             var vehicle = Repository.GetVehicle(id);
@@ -68,6 +76,10 @@ namespace VehicleShopApp.Service
             return result;
         }
 
+        /// <summary>
+        /// Delete existing vehicle in database.
+        /// </summary>
+        /// <returns></returns>
         public async Task<SaveVehicleResource> DeleteVehicle(int id)
         {
             var vehicle = Repository.GetVehicle(id);

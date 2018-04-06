@@ -26,6 +26,5 @@ namespace VehicleShopApp.Resources
         {
             VehicleMakes = new Collection<VehicleMakeResource>();
         }
-
     }
 }

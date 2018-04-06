@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Transactions;
 using VehicleShopApp.DAL;
 using VehicleShopApp.Model;
-using VehicleShopApp.Resources;
+using VehicleShopApp.Repository.Common;
 
-namespace VehicleShopApp.DAL
+namespace VehicleShopApp.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -54,9 +54,9 @@ namespace VehicleShopApp.DAL
                 return Task.FromResult(1);
                 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
 
         }
@@ -73,9 +73,9 @@ namespace VehicleShopApp.DAL
                 dbEntityEntry.State = EntityState.Modified;
                 return Task.FromResult(1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -95,9 +95,9 @@ namespace VehicleShopApp.DAL
                 }
                 return Task.FromResult(1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 

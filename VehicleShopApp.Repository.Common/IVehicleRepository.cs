@@ -9,13 +9,9 @@ namespace VehicleShopApp.Repository.Common
     {
         object Vehicles { get; }
 
-        // Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes();
         IEnumerable<VehicleMakeResource> GetVehicleMakes();
-
-        // Task<IEnumerable<VehicleResource>> GetVehicles();
-        IEnumerable<VehicleResource> GetVehicles();
+        Task <IEnumerable<VehicleResource>> GetVehicles();
         
-        // Task<Vehicle> 
         Vehicle GetVehicle(int id, bool includeRelated = true);
         Vehicle CreateVehicle(SaveVehicleResource vehicleResource);
         Vehicle EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource);

@@ -35,29 +35,10 @@ namespace VehicleShopApp.WebAPI.Controllers
 
         [HttpGet("/api/vehicles")]
 
-        public IEnumerable<VehicleResource> GetVehicles()
+        public async Task <IEnumerable<VehicleResource>> GetVehicles()
         {
-            /* Before dependency injection pattern implementation
-             * var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
-             * return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
-             */
-
-            // After implementation
-            return service.GetVehicles();
+            return await service.GetVehicles();
         }
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetVehicle(int id)
-        //{
-        //    var vehicle = await repository.GetVehicle(id);
-
-        //    if (vehicle == null)
-        //        return NotFound();
-
-        //    var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
-
-        //    return Ok(vehicleResource);
-        //}
 
         [HttpGet("{id}")]
         public IActionResult GetVehicle(int id)
@@ -98,7 +79,5 @@ namespace VehicleShopApp.WebAPI.Controllers
 
             return Ok(result);
         }
-
-
     }
 }

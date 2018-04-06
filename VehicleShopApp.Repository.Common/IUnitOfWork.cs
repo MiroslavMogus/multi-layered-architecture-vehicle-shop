@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace VehicleShopApp.Model
+namespace VehicleShopApp.Repository.Common
 {
     public interface IUnitOfWork : IDisposable
     {

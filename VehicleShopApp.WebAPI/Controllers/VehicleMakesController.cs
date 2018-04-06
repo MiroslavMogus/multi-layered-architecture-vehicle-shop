@@ -24,12 +24,6 @@ namespace VehicleShop.Controllers
 
         public IEnumerable<VehicleMakeResource> GetVehicleMakes()
         {
-            /* Before dependency injection pattern implementation
-             * var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
-             * return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
-             */
-
-            // After implementation
             return repository.GetVehicleMakes();
         }
     }
