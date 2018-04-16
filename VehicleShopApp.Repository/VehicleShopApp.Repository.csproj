@@ -12,7 +12,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VehicleShopApp.DAL\VehicleShopApp.DAL.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Model.Common\VehicleShopApp.Model.Common.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Model\VehicleShopApp.Model.csproj" />
     <ProjectReference Include="..\VehicleShopApp.Repository.Common\VehicleShopApp.Repository.Common.csproj" />
+    <ProjectReference Include="..\VehicleShopApp.Resources\VehicleShopApp.Resources.csproj" />
   </ItemGroup>
 
 </Project>

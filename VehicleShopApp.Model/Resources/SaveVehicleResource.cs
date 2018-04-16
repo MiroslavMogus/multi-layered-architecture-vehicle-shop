@@ -1,6 +1,8 @@
-using VehicleShopApp.Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace VehicleShopApp.Resources
+namespace VehicleShopApp.Model
 {
     public class SaveVehicleResource
     {

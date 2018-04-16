@@ -1,45 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using VehicleShopApp.Model;
 using VehicleShopApp.Repository.Common;
-using VehicleShopApp.Resources;
 using VehicleShopApp.Service.Common;
 
 namespace VehicleShopApp.Service
 {
     public class VehicleService : IVehicleService
     {
-        private readonly IUnitOfWork UnitOfWork;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="VehicleService" /> class.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="unitOfWork">The UnitOfWork.</param>
-        public VehicleService(IVehicleRepository repository, IUnitOfWork unitOfWork)
-        {
-            this.Repository = repository;
-            this.UnitOfWork = unitOfWork;
-        }
-
         /// <summary>
         /// Gets the repository.
         /// </summary>
         /// <value>The repository.</value>
         protected IVehicleRepository Repository { get; private set; }
 
-        public IEnumerable<VehicleMakeResource> GetVehicleMakes()
+        /// <summary>
+        /// Gets the UnitOfWork.
+        /// </summary>
+        /// <value>The UnitOfWork.</value>
+        private readonly IUnitOfWork UnitOfWork;
+
+        /// <summary>
+        /// Gets the Mapper.
+        /// </summary>
+        /// <value>The Mapper.</value>
+        private readonly IMapper Mapper;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VehicleService" /> class.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="unitOfWork">The UnitOfWork.</param>
+        /// <param name="mapper">The mapper.</param>
+        public VehicleService(IVehicleRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
-            return Repository.GetVehicleMakes();
+            this.Repository = repository;
+            this.UnitOfWork = unitOfWork;
+            this.Mapper = mapper;
+        }
+
+        public async Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes()
+        {
+            return await Repository.GetVehicleMakes();
         }
 
         /// <summary>
         /// Gets all available vehicles.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        public async Task<IEnumerable<VehicleResource>> GetVehicles(ObjectQueryResource queryResource)
         {
-            return await Repository.GetVehicles();
+            var query = Mapper.Map<ObjectQueryResource, ObjectQuery>(queryResource);
+
+            var vehicles = await Repository.GetVehicles(query);
+
+            return Mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         }
 
         /// <summary>
@@ -48,8 +64,8 @@ namespace VehicleShopApp.Service
         /// <returns></returns>
         public async Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource)
         {
-            var vehicle = Repository.CreateVehicle(vehicleResource);
-            
+            var vehicle = await Repository.CreateVehicle(vehicleResource);
+
             await UnitOfWork.AddAsync(vehicle);
 
             UnitOfWork.CommitAsync();
@@ -63,15 +79,15 @@ namespace VehicleShopApp.Service
         /// <returns></returns>
         public async Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource)
         {
-            var vehicle = Repository.GetVehicle(id);
-            
-            Repository.EditVehicle(vehicle, vehicleResource);
+            var vehicle = await Repository.GetVehicle(id);
+
+            await Repository.EditVehicle(vehicle, vehicleResource);
 
             await UnitOfWork.UpdateAsync(vehicle);
 
             UnitOfWork.CommitAsync();
-            
-            var result = Repository.MapVehicle(vehicle);
+
+            var result = await Repository.MapVehicle(vehicle);
 
             return result;
         }
@@ -90,6 +106,22 @@ namespace VehicleShopApp.Service
 
             SaveVehicleResource result = null;
             return result;
+        }
+
+        public async Task<VehicleResource> GetVehicleResource(int id)
+        {
+            var vehicle = await Repository.GetVehicle(id);
+
+            var vehicleResource = Mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+            return vehicleResource;
+        }
+
+        public async Task<Vehicle> GetVehicle(int id)
+        {
+            var vehicle = await Repository.GetVehicle(id);
+
+            return vehicle;
         }
     }
 }

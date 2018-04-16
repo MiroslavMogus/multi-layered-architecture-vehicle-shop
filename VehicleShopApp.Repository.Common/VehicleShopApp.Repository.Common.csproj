@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VehicleShopApp.Model\VehicleShopApp.Model.csproj" />
     <ProjectReference Include="..\VehicleShopApp.Resources\VehicleShopApp.Resources.csproj" />
   </ItemGroup>
 

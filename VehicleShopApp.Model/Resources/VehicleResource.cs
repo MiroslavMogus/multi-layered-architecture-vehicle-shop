@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using VehicleShopApp.Model;
 
-namespace VehicleShopApp.Resources
+namespace VehicleShopApp.Model
 {
     public class VehicleResource
     {

@@ -16,7 +16,7 @@ namespace VehicleShopApp.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Vehicle>().HasKey(v => new { v.Guid });
+            modelBuilder.Entity<Vehicle>().HasKey(v => new { v.Id });
         }
 
     }

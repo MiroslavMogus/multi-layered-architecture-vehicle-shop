@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VehicleShopApp.Model;
-using VehicleShopApp.Resources;
 
 namespace VehicleShopApp.Repository.Common
 {
@@ -9,12 +8,12 @@ namespace VehicleShopApp.Repository.Common
     {
         object Vehicles { get; }
 
-        IEnumerable<VehicleMakeResource> GetVehicleMakes();
-        Task <IEnumerable<VehicleResource>> GetVehicles();
-        
-        Vehicle GetVehicle(int id, bool includeRelated = true);
-        Vehicle CreateVehicle(SaveVehicleResource vehicleResource);
-        Vehicle EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource);
-        SaveVehicleResource MapVehicle(Vehicle vehicle);
+        Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes();
+        Task<IEnumerable<Vehicle>> GetVehicles(ObjectQuery filter);
+
+        Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
+        Task<Vehicle> CreateVehicle(SaveVehicleResource vehicleResource);
+        Task<Vehicle> EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource);
+        Task<SaveVehicleResource> MapVehicle(Vehicle vehicle);
     }
 }

@@ -2,16 +2,16 @@ using AutoMapper;
 using VehicleShopApp.Resources;
 using VehicleShopApp.Model;
 
-namespace VehicleShop.Mapping
+namespace VehicleShopApp.WebAPI
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<VehicleMake, VehicleMakeResource>();
-            CreateMap<VehicleModel, VehicleModelResource>();
-            CreateMap<Vehicle, VehicleResource>();
-            CreateMap<SaveVehicleResource, Vehicle>();
+            CreateMap<VehicleMake, Model.VehicleMakeResource>();
+            CreateMap<VehicleModel, Model.VehicleModelResource>();
+            CreateMap<Vehicle, Model.VehicleResource>();
+            CreateMap<Model.SaveVehicleResource, Vehicle>();
         }
     }
 }

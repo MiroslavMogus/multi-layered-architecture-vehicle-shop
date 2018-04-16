@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using VehicleShopApp.Resources;
 using VehicleShopApp.Repository.Common;
 using VehicleShopApp.Model;
 
@@ -22,9 +21,9 @@ namespace VehicleShop.Controllers
         }
         [HttpGet("/api/vehiclemakes")]
 
-        public IEnumerable<VehicleMakeResource> GetVehicleMakes()
+        public async Task<IEnumerable<VehicleMakeResource>> GetVehicleMakes()
         {
-            return repository.GetVehicleMakes();
+            return await repository.GetVehicleMakes();
         }
     }
 }
