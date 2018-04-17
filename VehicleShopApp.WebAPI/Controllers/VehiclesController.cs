@@ -30,6 +30,13 @@ namespace VehicleShopApp.WebAPI.Controllers
             return await service.GetVehicles(query);
         }
 
+        [HttpGet("/api/vehicles/total")]
+        public async Task<int> GetVehiclesTotal()
+        {
+            return await service.GetVehiclesTotal();
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
         {

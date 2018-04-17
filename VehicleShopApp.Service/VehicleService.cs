@@ -59,6 +59,17 @@ namespace VehicleShopApp.Service
         }
 
         /// <summary>
+        /// Gets total vehicles number.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<int> GetVehiclesTotal()
+        {
+            var total = await Repository.GetVehiclesTotal();
+
+            return total;
+        }
+
+        /// <summary>
         /// Create new vehicle and store it to database.
         /// </summary>
         /// <returns></returns>
@@ -96,18 +107,22 @@ namespace VehicleShopApp.Service
         /// Delete existing vehicle in database.
         /// </summary>
         /// <returns></returns>
-        public async Task<SaveVehicleResource> DeleteVehicle(int id)
+        public async Task<Vehicle> DeleteVehicle(int id)
         {
-            var vehicle = Repository.GetVehicle(id);
-
+            Vehicle vehicle = await Repository.GetVehicle(id);
+            
             await UnitOfWork.DeleteAsync(vehicle);
 
             UnitOfWork.CommitAsync();
 
-            SaveVehicleResource result = null;
+            Vehicle result = null;
             return result;
         }
 
+        /// <summary>
+        /// Get vehicle from database by id.
+        /// </summary>
+        /// <returns></returns>
         public async Task<VehicleResource> GetVehicleResource(int id)
         {
             var vehicle = await Repository.GetVehicle(id);
@@ -117,6 +132,10 @@ namespace VehicleShopApp.Service
             return vehicleResource;
         }
 
+        /// <summary>
+        /// Get vehicle from database by id.
+        /// </summary>
+        /// <returns></returns>
         public async Task<Vehicle> GetVehicle(int id)
         {
             var vehicle = await Repository.GetVehicle(id);
