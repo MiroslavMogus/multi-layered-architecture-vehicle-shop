@@ -11,7 +11,7 @@ namespace VehicleShopApp.WebAPI
             CreateMap<VehicleMake, Model.VehicleMakeResource>();
             CreateMap<VehicleModel, Model.VehicleModelResource>();
             CreateMap<Vehicle, Model.VehicleResource>();
-            CreateMap<Vehicle, Model.SaveVehicleResource>();
+            CreateMap<Model.SaveVehicleResource, Vehicle>();
         }
     }
 }
