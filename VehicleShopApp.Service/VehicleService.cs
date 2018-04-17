@@ -77,10 +77,6 @@ namespace VehicleShopApp.Service
         {
             var vehicle = await Repository.CreateVehicle(vehicleResource);
 
-            await UnitOfWork.AddAsync(vehicle);
-
-            UnitOfWork.CommitAsync();
-
             return vehicle;
         }
 
@@ -90,13 +86,10 @@ namespace VehicleShopApp.Service
         /// <returns></returns>
         public async Task<SaveVehicleResource> EditVehicle(int id, SaveVehicleResource vehicleResource)
         {
+
             var vehicle = await Repository.GetVehicle(id);
 
             await Repository.EditVehicle(vehicle, vehicleResource);
-
-            await UnitOfWork.UpdateAsync(vehicle);
-
-            UnitOfWork.CommitAsync();
 
             var result = await Repository.MapVehicle(vehicle);
 
@@ -110,12 +103,9 @@ namespace VehicleShopApp.Service
         public async Task<Vehicle> DeleteVehicle(int id)
         {
             Vehicle vehicle = await Repository.GetVehicle(id);
-            
-            await UnitOfWork.DeleteAsync(vehicle);
 
-            UnitOfWork.CommitAsync();
+            var result = await Repository.DeleteVehicle(vehicle);
 
-            Vehicle result = null;
             return result;
         }
 

@@ -16,5 +16,6 @@ namespace VehicleShopApp.Repository.Common
         Task<Vehicle> EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource);
         Task<SaveVehicleResource> MapVehicle(Vehicle vehicle);
         Task<int> GetVehiclesTotal();
+        Task<Vehicle> DeleteVehicle(Vehicle vehicle);
     }
 }

@@ -14,12 +14,19 @@ namespace VehicleShopApp.Repository
         private readonly VehicleShopDbContext context;
         private readonly IMapper vmapper;
 
+        /// <summary>
+        /// Gets the UnitOfWork.
+        /// </summary>
+        /// <value>The UnitOfWork.</value>
+        private readonly IUnitOfWork UnitOfWork;
+
         public object Vehicles => throw new System.NotImplementedException();
 
-        public VehicleRepository(VehicleShopDbContext context, IMapper vmapper)
+        public VehicleRepository(VehicleShopDbContext context, IMapper vmapper, IUnitOfWork unitOfWork)
         {
             this.context = context;
             this.vmapper = vmapper;
+            this.UnitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -111,6 +118,10 @@ namespace VehicleShopApp.Repository
 
             var vehicle = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
 
+            await UnitOfWork.AddAsync(vehicle);
+
+            UnitOfWork.CommitAsync();
+
             return vehicle;
         }
 
@@ -120,9 +131,27 @@ namespace VehicleShopApp.Repository
         /// <returns>Vehicle</returns>
         async Task<Vehicle> IVehicleRepository.EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource)
         {
+            await UnitOfWork.UpdateAsync(vehicle);
+
+            UnitOfWork.CommitAsync();
+
             var result = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
 
             return result;
+        }
+
+        /// <summary>
+        /// Delete existing vehicle in database.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Vehicle> DeleteVehicle(Vehicle vehicle)
+        {
+            await UnitOfWork.DeleteAsync(vehicle);
+
+            UnitOfWork.CommitAsync();
+
+            return vehicle;
+
         }
 
         /// <summary>
