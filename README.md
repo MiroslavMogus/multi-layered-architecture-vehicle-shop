@@ -61,7 +61,7 @@ cd multi-layered-architecture-vehicle-shop
 
 ..\multi-layered-architecture-vehicle-shop>cd VehicleShopApp.WebAPI
 
-4. Change connection string inside appsettings.json to:
+4. Change connection string inside appsettings.json from "vehicleshop-4" to whatever for fresh db install:
 
 {
   "ConnectionStrings": {
