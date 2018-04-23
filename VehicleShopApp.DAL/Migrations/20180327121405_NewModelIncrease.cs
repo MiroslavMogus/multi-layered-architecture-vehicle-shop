@@ -29,6 +29,14 @@ namespace VehicleShopApp.DAL.Migrations
             migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(71, N'err', 2, 1)");
             migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(88, N'uhahahaha', 2, 1)");
             migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(89, N'llccccss', 5, 2)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(61, N'eddd', 3, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(72, N'err', 2, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(83, N'uhahahaha', 2, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(84, N'llccccss', 5, 2)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(65, N'eddd', 3, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(76, N'err', 2, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(81, N'uhahahaha', 2, 1)");
+            migrationBuilder.Sql("INSERT INTO[dbo].[Vehicles] ([Id], [OwnerEmail], [VehicleModelId], [VehicleMakeId]) VALUES(82, N'llccccss', 5, 2)");
             migrationBuilder.Sql("SET IDENTITY_INSERT[dbo].[Vehicles] OFF");
 
     }
