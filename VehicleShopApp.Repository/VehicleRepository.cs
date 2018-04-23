@@ -11,8 +11,8 @@ namespace VehicleShopApp.Repository
 {
     public class VehicleRepository : IVehicleRepository
     {
-        private readonly VehicleShopDbContext context;
-        private readonly IMapper vmapper;
+        private readonly VehicleShopDbContext Context;
+        private readonly IMapper Vmapper;
 
         /// <summary>
         /// Gets the UnitOfWork.
@@ -24,8 +24,8 @@ namespace VehicleShopApp.Repository
 
         public VehicleRepository(VehicleShopDbContext context, IMapper vmapper, IUnitOfWork unitOfWork)
         {
-            this.context = context;
-            this.vmapper = vmapper;
+            this.Context = context;
+            this.Vmapper = vmapper;
             this.UnitOfWork = unitOfWork;
         }
 
@@ -36,7 +36,7 @@ namespace VehicleShopApp.Repository
         /// <returns>int</returns>
         async Task<int> IVehicleRepository.GetVehiclesTotal()
         {
-            var query = context.Vehicles
+            var query = Context.Vehicles
                 .Include(v => v.VehicleModel)
                 .ThenInclude(m => m.VehicleMake)
                 .AsQueryable();
@@ -49,37 +49,37 @@ namespace VehicleShopApp.Repository
         /// to retrieve paginated results.
         /// </summary>
         /// <returns>Vehicle</returns>
-        async Task<IEnumerable<Vehicle>> IVehicleRepository.GetVehicles(ObjectQuery vehicleQuery)
+        async Task<IEnumerable<Vehicle>> IVehicleRepository.GetVehicles(ObjectQuery VehicleQuery)
         {
-            var query = context.Vehicles
+            var query = Context.Vehicles
             .Include(v => v.VehicleModel)
             .ThenInclude(m => m.VehicleMake)
             .AsQueryable();
 
-            if (vehicleQuery.VehicleMakeId.HasValue)
-                query = query.Where(v => v.VehicleModel.VehicleMakeId == vehicleQuery.VehicleMakeId.Value);
+            if (VehicleQuery.VehicleMakeId.HasValue)
+                query = query.Where(v => v.VehicleModel.VehicleMakeId == VehicleQuery.VehicleMakeId.Value);
 
-            if (vehicleQuery.SortBy == "vehicleMake")
+            if (VehicleQuery.SortBy == "vehicleMake")
             {
-                query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.VehicleModel.VehicleMake.Name) : query.OrderByDescending(v => v.VehicleModel.VehicleMake.Name);
+                query = (VehicleQuery.IsSortAscending) ? query.OrderBy(v => v.VehicleModel.VehicleMake.Name) : query.OrderByDescending(v => v.VehicleModel.VehicleMake.Name);
             }
 
-            if (vehicleQuery.SortBy == "vehicleModel")
+            if (VehicleQuery.SortBy == "vehicleModel")
             {
-                query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.VehicleModel.Name) : query.OrderByDescending(v => v.VehicleModel.Name);
+                query = (VehicleQuery.IsSortAscending) ? query.OrderBy(v => v.VehicleModel.Name) : query.OrderByDescending(v => v.VehicleModel.Name);
             }
 
-            if (vehicleQuery.SortBy == "ownersEmail")
+            if (VehicleQuery.SortBy == "ownersEmail")
             {
-                query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.OwnerEmail) : query.OrderByDescending(v => v.OwnerEmail);
+                query = (VehicleQuery.IsSortAscending) ? query.OrderBy(v => v.OwnerEmail) : query.OrderByDescending(v => v.OwnerEmail);
             }
 
-            if (vehicleQuery.SortBy == "id")
+            if (VehicleQuery.SortBy == "id")
             {
-                query = (vehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
+                query = (VehicleQuery.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
             }
 
-            query = query.Skip((vehicleQuery.Page - 1) * vehicleQuery.PageSize).Take(vehicleQuery.PageSize);
+            query = query.Skip((VehicleQuery.Page - 1) * VehicleQuery.PageSize).Take(VehicleQuery.PageSize);
 
             var vehicles = await query.ToListAsync();
 
@@ -92,21 +92,21 @@ namespace VehicleShopApp.Repository
         /// <returns>IEnumerable<VehicleMakeResource></returns>
         async Task<IEnumerable<VehicleMakeResource>> IVehicleRepository.GetVehicleMakes()
         {
-            var vehiclemakes = await context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
+            var VehicleMakes = await Context.VehicleMakes.Include(m => m.VehicleModels).ToListAsync();
 
-            return vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(vehiclemakes);
+            return Vmapper.Map<List<VehicleMake>, List<VehicleMakeResource>>(VehicleMakes);
         }
 
         /// <summary>
         /// Returning Vehicle from database.
         /// </summary>
         /// <returns>Vehicle</returns>
-        async Task<Vehicle> IVehicleRepository.GetVehicle(int id, bool includeRelated)
+        async Task<Vehicle> IVehicleRepository.GetVehicle(int Id, bool includeRelated)
         {
 
-            Vehicle found = await context.Vehicles.FindAsync(id);
+            Vehicle Found = await Context.Vehicles.FindAsync(Id);
 
-            return found;
+            return Found;
         }
 
         /// <summary>
@@ -116,11 +116,11 @@ namespace VehicleShopApp.Repository
         async Task<Vehicle> IVehicleRepository.CreateVehicle(SaveVehicleResource vehicleResource)
         {
 
-            var vehicle = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
+            var vehicle = Vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
 
             await UnitOfWork.AddAsync(vehicle);
 
-            UnitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
 
             return vehicle;
         }
@@ -131,11 +131,12 @@ namespace VehicleShopApp.Repository
         /// <returns>Vehicle</returns>
         async Task<Vehicle> IVehicleRepository.EditVehicle(Vehicle vehicle, SaveVehicleResource vehicleResource)
         {
-            await UnitOfWork.UpdateAsync(vehicle);
 
-            UnitOfWork.CommitAsync();
+            var result = Vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
 
-            var result = vmapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
+            await UnitOfWork.UpdateAsync(result);
+
+            await UnitOfWork.CommitAsync();
 
             return result;
         }
@@ -148,7 +149,7 @@ namespace VehicleShopApp.Repository
         {
             await UnitOfWork.DeleteAsync(vehicle);
 
-            UnitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
 
             return vehicle;
 
@@ -161,7 +162,7 @@ namespace VehicleShopApp.Repository
         /// <returns>Vehicle</returns>
         public async Task<SaveVehicleResource> MapVehicle(Vehicle vehicle)
         {
-            var result = vmapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+            var result = Vmapper.Map<Vehicle, SaveVehicleResource>(vehicle);
 
             return result;
         }

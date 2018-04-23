@@ -26,11 +26,11 @@ namespace VehicleShopApp.Repository
         /// If a provider does not implement support for System.Transactions, it is possible that calls to these APIs will be completely ignored. 
         /// SqlClient for .NET Core does support it from 2.1 onwards.SqlClient for .NET Core 2.0 will throw an exception of you attempt to use the feature.
         /// </summary>
-        public  int CommitAsync()
+        public async Task<int> CommitAsync()
         {
             int result = 0;
 
-            result = context.SaveChanges();
+            result = await context.SaveChangesAsync();
 
             return result;
         }
